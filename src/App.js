@@ -4,6 +4,7 @@ import './App.css';
 import './Login'
 import Login from './Login';
 import { getTokenFromUrl } from './spotify';
+import Player from'./Player'
 
 const spotifty = new SpotifyWebApi();
 
@@ -18,6 +19,12 @@ function App() {
  
     if (_token) {
       setToken(_token);
+
+      spotifty.setAccessToken(_token);
+
+      spotifty.getMe().then(user => {
+        console.log(user);
+      })
     }
 
   }, []);
@@ -26,7 +33,7 @@ function App() {
     <div className='app'>
       {
         token ? (
-          <h1>I am logged in</h1>
+          <Player />
         ) : (
           <Login />
         )
